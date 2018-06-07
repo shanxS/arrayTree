@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-class Location {
+public class Location {
     @Getter
     private final int arrayIndex, index;
 }

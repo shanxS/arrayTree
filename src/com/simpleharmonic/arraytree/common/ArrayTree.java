@@ -1,29 +1,31 @@
 package com.simpleharmonic.arraytree.common;
 
-import com.simpleharmonic.arraytree.List;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.simpleharmonic.arraytree.common.utils.FindUtil;
 
 import java.util.ArrayList;
 
-public class ArrayTree <T extends Comparable> implements List<T> {
+public class ArrayTree <T extends Comparable> implements com.simpleharmonic.arraytree.List<T> {
     private final int DEFAULT_SIZE = 10;
-    private ArrayList<Node<T>[]> nodeList;
+    private ArrayList<Node<T>[]> arrayList;
+    private FindUtil<T> findUtil;
 
     public ArrayTree() {
-        nodeList = new ArrayList<>();
-        nodeList.add(new Node[DEFAULT_SIZE]);
+        findUtil = new FindUtil<>();
+        arrayList = new ArrayList<>();
+        arrayList.add(new Node[DEFAULT_SIZE]);
+        arrayList.get(0)[0] = new Node<>(new Location(0, 0));
     }
 
     @Override
     public void add(T element) {
-        Location predecessorLoc = findPredecessor(element);
+        Location predecessorLoc = findUtil.findPredecessor(element, arrayList);
         insertAfter(predecessorLoc, element);
     }
 
-    private Location findPredecessor(T element) {
-        return null;
+    private void insertAfter(Location predecessorLoc, T element) {
+        if (predecessorLoc == null) {
+
+        }
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ArrayTree <T extends Comparable> implements List<T> {
 
     @Override
     public void print() {
-        Node[] parentList = nodeList.get(0);
+        Node[] parentList = arrayList.get(0);
         for (int i=0; i<parentList.length; ++i) {
             Node node = parentList[i];
             if (node != null) {
